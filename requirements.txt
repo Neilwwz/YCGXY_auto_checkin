@@ -1,0 +1,7 @@
+pytz>=2021.3
+requests>=2.26.0
+six>=1.16.0
+ddddocr
+schedule
+selenium
+tzlocal
