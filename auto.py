@@ -102,11 +102,11 @@ class User:
         img = driver.find_element("xpath", "/html/body/div[1]/div/div/div/div[2]/div[2]/form/div[3]/img")
         url = img.get_attribute('src')
         filename = url.split('/')[-2]
-        urllib.request.urlretrieve(url, f"tmp/{filename}")
-        captcha = open(f"tmp/{filename}", "rb").read()
+        urllib.request.urlretrieve(url, f"{filename}")
+        captcha = open(f"{filename}", "rb").read()
         code = ocr.classification(captcha)
         driver.find_element("id", "id_captcha_1").send_keys(code)
-        os.remove(f"tmp/{filename}")
+        os.remove(f"{filename}")
         driver.find_element("xpath", "/html/body/div[1]/div/div/div/div[2]/div[2]/form/button").click()
         try:
             driver.find_element("xpath", "/html/body/div[1]/div[3]/div[2]/div/div/div/div/div[1]/div")
