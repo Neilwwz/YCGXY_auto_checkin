@@ -39,6 +39,15 @@ config = Config()
 
 ocr = ddddocr.DdddOcr()
 
+ua_list = [
+    "Mozilla/5.0 (Linux; U; Android 10; zh-CN; MI 9 Build/QKQ1.190825.002) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/78.0.3904.108 UCBrowser/13.1.9.1099 Mobile Safari/537.36",
+    "Mozilla/5.0 (Linux; Android 10; GM1910 Build/QKQ1.190716.003; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/76.0.3809.89 Mobile Safari/537.36 T7/12.5 SP-engine/2.26.0 baiduboxapp/12.5.0.11 (Baidu; P1 10) NABar/1.0",
+    "Mozilla/5.0 (Linux; U; Android 11; zh-CN; Redmi K30 Pro Build/RKQ1.200826.002) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/78.0.3904.108 Quark/5.1.2.182 Mobile Safari/537.36",
+    "Mozilla/5.0 (Linux; Android 13) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.5195.124 Mobile Safari/537.36",
+    "Mozilla/5.0 (Android 13; Mobile; rv:68.0) Gecko/68.0 Firefox/104.0",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.6 Mobile/15E148 Safari/604.1",
+    "Mozilla/5.0 (Linux; Android 13; Pixel 6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.5195.124 Mobile Safari/537.36",]
+
 
 def setup_driver():
     global driver
@@ -46,9 +55,7 @@ def setup_driver():
     options.add_argument("no-sandbox")
     options.add_argument("--disable-gpu")
     options.add_argument("--disable-dev-shm-usage")
-    options.add_argument("user-agent=Mozilla/5.0 (Linux; Android 11; Pixel 4a Build/RP1A.200720.005; wv) "
-                         "AppleWebKit/537.36 (KHTML, "
-                         "like Gecko) Version/4.0 Chrome/84.0.4147.111 Mobile Safari/537.36")
+    options.add_argument(f"user-agent={random.choice(ua_list)}")
     driver = webdriver.Remote(command_executor=config.webdriver, options=options)
     driver.set_page_load_timeout(30)
 
@@ -95,8 +102,16 @@ class User:
         self.password = config.password
 
     def login(self):
-        driver.get("https://health.xiamin.tech/user/profile/")
-        driver.find_element("xpath", "/html/body/div[2]/div/div[4]/div/button").click()
+        driver.get("https://health.xiamin.tech/login/?next=/user/profile/")
+        try:
+            driver.find_element("xpath", "/html/body/div[2]/div/div[4]/div/button").click()
+        except BaseException:
+            pass
+        try:
+            driver.find_element("xpath", "/html/body/div[1]/div/div/div/div[2]/div[2]/form/button")
+        except BaseException:
+            info("已经登陆")
+            return True
         driver.find_element("id", "id_username").send_keys(self.username)
         driver.find_element("id", "id_password").send_keys(self.password)
         img = driver.find_element("xpath", "/html/body/div[1]/div/div/div/div[2]/div[2]/form/div[3]/img")
@@ -120,12 +135,12 @@ class User:
     def checkin(self):
         driver.refresh()
         if driver.find_element("id", "regist_button").get_attribute("disabled") == "true":
-            info("今日已上报")
+            info("检测到今日已上报")
         else:
             driver.find_element("id", "regist_button").click()
             sleep(3)
             driver.find_element("xpath", '//*[@id="app"]/div[5]/div[2]/button[2]').click()
-            notification("今日上报成功")
+            notification("今日自动上报成功")
 
 
 def randomtime():  # 随机时间
