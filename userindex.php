@@ -18,7 +18,7 @@ $currenttask = new task($currentuser->task_id);
     </noscript>
     <link href="https://jsd.cloudsides.com/npm/nprogress@0.2.0/nprogress.min.css" rel="stylesheet"/>
     <script src="https://jsd.cloudsides.com/npm/nprogress@0.2.0/nprogress.min.js"></script>
-    <title>个人中心 - UOM自动签到</title>
+    <title>个人中心 - 盐城工学院自动上报</title>
 </head>
 <body>
 <div id="wrapper">
@@ -70,12 +70,13 @@ $currenttask = new task($currentuser->task_id);
                 <ul class="actions">
                     <li><input type="submit" value="保存" class="primary special" name="submit"/></li>
                     <li><input type="submit" value="删除我的任务" class="primary" name="delete"/></li>
+                    <li><a href="//wxpusher.zjiecode.com/api/qrcode/qPyymTWBd9Qe0aA3Gjy3cE5wA5m7SAvB3Jx2rZaNZuLXcez1VJ7saWqlZddbVzAl.jpg" target="_blank"><input type="button" value="关注微信通知中心" class="primary"></a></li>
                 </ul>
             </form>
         </article>
         <article id="info">
             <h2 class="major">个人信息</h2>
-            <p>您的邮箱是：<b><?php echo $currentuser->username; ?></p>
+            <p>您的用户名是：<b><?php echo $currentuser->username; ?></p>
             <form action="user_info.php" method="post">
                 <div class="field">
                     <label for="password">密码</label>

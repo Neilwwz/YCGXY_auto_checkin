@@ -19,7 +19,7 @@ include "include/common.php";
     </noscript>
     <link href="https://jsd.cloudsides.com/npm/nprogress@0.2.0/nprogress.min.css" rel="stylesheet"/>
     <script src="https://jsd.cloudsides.com/npm/nprogress@0.2.0/nprogress.min.js"></script>
-    <title>UOM自动签到</title>
+    <title>YCGXY自动签到</title>
 </head>
 
 <body>
@@ -31,8 +31,8 @@ include "include/common.php";
         </div>
         <div class="content">
             <div class="inner">
-                <h1>UoM自动签到</h1>
-                <p>UoM AutoCheckin</p>
+                <h1>盐城工学院自动申报</h1>
+                <p>YCGXY AutoCheckin</p>
             </div>
         </div>
         <nav>
@@ -45,8 +45,7 @@ include "include/common.php";
     <div id="main">
         <article id="intro">
             <h2 class="major">简介</h2>
-            <p>欢迎来到UoM自动签到管理系统，本项目开源于GitHub<br>Welcome to UoM AutoCheckin, this repo is open source on GitHub<br>
-                ようこそUoM AutoCheckinへ、このレポはGitHubでオーペンソースです</p>
+            <p>欢迎来到盐城工学院健康信息自动报送管理系统，本项目开源于GitHub<br>Welcome to UoM AutoCheckin, this repo is open source on GitHub</p>
         </article>
         <article id="login">
             <?php
