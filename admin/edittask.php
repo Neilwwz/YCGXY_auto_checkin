@@ -7,7 +7,7 @@ if (isset($_POST['submit'])) {
         alert("任务不存在");
         exit;
     }
-    $currenttask->update($_POST['username'], $_POST['password'], $_POST['tgbot_userid'], $_POST['tgbot_token'], $_POST['wxpusher_uid'], $_POST['webdriver'], $_POST['userid']);
+    $currenttask->update($_POST['username'], $_POST['password'], $_POST['wxpusher_uid'], $_POST['userid']);
     echo '<div class="alert alert-success" role="alert"><p>保存成功</p></div>';
     echo '<script>window.setTimeout("window.location=\'tasks.php\'",800);</script>';
     exit;
@@ -54,7 +54,7 @@ if (isset($_GET['action'])) {
                        readonly>
             </div>
             <div class="input-group mb-3">
-                <span class='input-group-text' id='name'>用户名</span>
+                <span class='input-group-text' id='name'>身份证号</span>
                 <input type='text' required class='form-control' name='username' autocomplete='off'
                        value='<?php echo $currenttask->username; ?>'>
             </div>
@@ -64,24 +64,9 @@ if (isset($_GET['action'])) {
                        value='<?php echo $currenttask->password; ?>'>
             </div>
             <div class="input-group mb-3">
-                <span class='input-group-text' id='name'>Telegram Chat ID</span>
-                <input type='text' class='form-control' name='tgbot_userid' placeholder='不需要请留空' autocomplete='off'
-                       value='<?php echo $currenttask->tgbot_userid; ?>'>
-            </div>
-            <div class="input-group mb-3">
-                <span class='input-group-text' id='name'>Telegram Bot Token</span>
-                <input type='text' class='form-control' name='tgbot_token' placeholder='不需要请留空' autocomplete='off'
-                       value='<?php echo $currenttask->tgbot_token; ?>'>
-            </div>
-            <div class="input-group mb-3">
                 <span class='input-group-text' id='name'>WxPusher UID</span>
                 <input type='text' class='form-control' name='wxpusher_uid' placeholder='不需要请留空' autocomplete='off'
                        value='<?php echo $currenttask->wxpusher_uid; ?>'>
-            </div>
-            <div class="input-group mb-3">
-                <span class='input-group-text' id='name'>Webdriver URL</span>
-                <input type='text' class='form-control' name='webdriver' placeholder='不需要请留空' autocomplete='off'
-                       value='<?php echo $currenttask->webdriver; ?>'>
             </div>
             <div class="input-group mb-3">
                 <span class='input-group-text' id='userid'>所属用户ID</span>
