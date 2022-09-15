@@ -17,8 +17,8 @@ include "include/common.php";
     <noscript>
         <link rel="stylesheet" href="/resources/css/noscript.css"/>
     </noscript>
-    <link href="https://jsd.cloudsides.com/npm/nprogress@0.2.0/nprogress.min.css" rel="stylesheet"/>
-    <script src="https://jsd.cloudsides.com/npm/nprogress@0.2.0/nprogress.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
     <title>YCGXY自动签到</title>
 </head>
 
@@ -74,8 +74,8 @@ include "include/common.php";
     <? include "footer.php"; ?>
 </div>
 <div id="bg"></div>
-<script src="https://jsd.cloudsides.com/npm/jquery@1.11.3"></script>
-<script src="https://jsd.cloudsides.com/gh/ajlkn/skel@3.0.1/dist/skel.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/skel/3.0.1/skel.min.js"></script>
 <script src="/resources/js/util.js"></script>
 <script src="/resources/js/main.js"></script>
 <script>
