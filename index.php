@@ -45,7 +45,7 @@ include "include/common.php";
     <div id="main">
         <article id="intro">
             <h2 class="major">简介</h2>
-            <p>欢迎来到盐城工学院健康信息自动报送管理系统，本项目开源于GitHub<br>Welcome to UoM AutoCheckin, this repo is open source on GitHub</p>
+            <p>欢迎来到盐城工学院健康信息自动报送管理系统，本项目开源于GitHub<br>Welcome to YCGXY AutoCheckin, this repo is open source on GitHub</p>
         </article>
         <article id="login">
             <?php
