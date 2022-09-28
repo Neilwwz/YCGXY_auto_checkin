@@ -46,7 +46,7 @@ ua_list = [
     "Mozilla/5.0 (Linux; Android 13) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.5195.124 Mobile Safari/537.36",
     "Mozilla/5.0 (Android 13; Mobile; rv:68.0) Gecko/68.0 Firefox/104.0",
     "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.6 Mobile/15E148 Safari/604.1",
-    "Mozilla/5.0 (Linux; Android 13; Pixel 6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.5195.124 Mobile Safari/537.36",]
+    "Mozilla/5.0 (Linux; Android 13; Pixel 6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.5195.124 Mobile Safari/537.36", ]
 
 
 def setup_driver():
@@ -88,12 +88,12 @@ def info(text):
 
 
 def error(text, time_hold=300):
-    notification(text)
+    notification(text, True)
     logging.critical(text)
     driver.quit()
-    time.sleep(time_hold)
-    main()
-    exit()
+    schedule.clear("task")
+    next_time = (datetime.datetime.now() + datetime.timedelta(seconds=time_hold)).strftime("%H:%M:%S")
+    schedule.every().day.at(next_time).do(job).tag("task")
 
 
 class User:
@@ -144,7 +144,7 @@ class User:
 
 
 def randomtime():  # 随机时间
-    return modifytime(random.randint(1, 7), random.randint(1, 59), random.randint(1, 59))
+    return modifytime(random.randint(2, 7), random.randint(1, 59), random.randint(1, 59))
 
 
 def modifytime(hh, mm, ss):  # 换算时区
@@ -155,16 +155,22 @@ def modifytime(hh, mm, ss):  # 换算时区
     return [time.strftime('%H:%M:%S'), f"{hh}:{mm}:{ss}"]  # 修正时区|上海时区
 
 
+def dailyjob():
+    if not schedule.get_jobs("task"):
+        nexttime = randomtime()
+        schedule.every().day.at(nexttime[0]).do(job).tag("task")
+        info(f"已设置下次执行时间（本地时区）：{nexttime[0]}")
+        info(f"已设置下次执行时间：{nexttime[1]}")
+    else:
+        print("检测到任务已存在，不再重复添加")
+
+
 def job():
+    schedule.clear("task")
     setup_driver()
     while not (user.login()):
         pass
     user.checkin()
-    schedule.clear()
-    nexttime = randomtime()
-    schedule.every().day.at(nexttime[0]).do(job)
-    info(f"已设置下次执行时间（本地时区）：{nexttime[0]}")
-    info(f"已设置下次执行时间：{nexttime[1]}")
     driver.quit()
 
 
@@ -173,9 +179,11 @@ def main():
     global user
     user = User()
     job()
+    dailytime = modifytime(1, 0, 0)
+    schedule.every().day.at(dailytime[0]).do(dailyjob).tag("dailyjob")
     while True:
         schedule.run_pending()
-        time.sleep(60)
+        time.sleep(1)
 
 
 if __name__ == '__main__':
